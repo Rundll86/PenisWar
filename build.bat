@@ -1,0 +1,1 @@
+pyinstaller -F src/client.py -i Von-Lycaon.ico
