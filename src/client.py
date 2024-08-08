@@ -126,12 +126,17 @@ def empty():
     pass
 
 
+def officialConnect():
+    global savedServerAddress
+    savedServerAddress = "http://154.44.26.86:8080"
+
+
 def customConnect():
     global savedServerAddress
     savedServerAddress = input("输入服务器地址：")
 
 
-savedServerAddress = "http://127.0.0.1:8080"
+savedServerAddress = None
 savedUsername = None
 savedPassword = None
 selector = conkits.Choice()
@@ -140,9 +145,10 @@ selector.checked_ansi_code = Colors256.BACK255 + Colors256.FORE0
 selector.set_keys({"up": "H", "down": "P", "confirm": "\r"})
 print("\n选择一个服务器线路：")
 selector.set_options(["官方服务器", "自定义连接"])
-selector.set_methods([empty, customConnect])
+selector.set_methods([officialConnect, customConnect])
 selector.run()
 try:
+    print(f"正在连接到{savedServerAddress}")
     if sendApi("ping")["message"] != "PENIS_WARS":
         raise
 except:
