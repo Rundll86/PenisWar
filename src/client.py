@@ -2,7 +2,7 @@ import constants
 
 print(f"{constants.penis}大作战 v{constants.version}")
 
-import requests, conkits, msvcrt, sys
+import requests, conkits, msvcrt, sys, colorama
 from conkits import Colors256
 from rich import print
 
@@ -136,12 +136,11 @@ def customConnect():
     savedServerAddress = input("输入服务器地址：")
 
 
+colorama.init(autoreset=False)
 savedServerAddress = None
 savedUsername = None
 savedPassword = None
 selector = conkits.Choice()
-selector.unchecked_ansi_code = Colors256.BACK0 + Colors256.FORE255
-selector.checked_ansi_code = Colors256.BACK255 + Colors256.FORE0
 selector.set_keys({"up": "H", "down": "P", "confirm": "\r"})
 print("\n选择一个服务器线路：")
 selector.set_options(["官方服务器", "自定义连接"])
@@ -162,6 +161,7 @@ selector.run()
 print("")
 showUserInfo(savedUsername)
 while True:
+    selector._current_index = 0
     selector.set_options(["导管", f"查看{constants.penis}", "对决", "后入"])
     selector.set_methods([growUp, showUserInfoPlain, fight, insert])
     selector.run()
